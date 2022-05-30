@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entities.Menu;
 import com.example.entities.MenuType;
@@ -18,6 +19,7 @@ import com.example.service.MenuTypeService;
 import com.example.service.ServiceTravelService;
 
 @Controller
+@RequestMapping("/menus")
 public class MenuController {
 	private MenuService menuService;
 	private MenuTypeService menuTypeService;
@@ -32,16 +34,17 @@ public class MenuController {
 		this.serviceTravelService = serviceTravelService;
 	}
 
-	@GetMapping("/menus/list/{id}")
+	@GetMapping("/list/{id}")
 	public String home(@PathVariable Long id, Model model) {
+		
 		serviceTravel = serviceTravelService.getServiceTravelById(id);
 		model.addAttribute("serviceTravel",serviceTravelService.getServiceTravelById(id));
 		model.addAttribute("menus", menuService.getAllMenuByServices(id));
 		
-		return "menus";
+		return "menus/menus";
 	}
 
-	@GetMapping("/menus/new")
+	@GetMapping("/insert")
 	public String createMenuForm(Model model) {
 		
 		Menu menu = new Menu();
@@ -50,31 +53,30 @@ public class MenuController {
 		model.addAttribute("menu", menu);
 		model.addAttribute("menuTypes", menuTypes);
 
-		return "insert-menu";
+		return "menus/insert-menu";
 	}
-
-	@PostMapping("/menus")
+	
+	@PostMapping("/save")
 	public String saveMenu(@ModelAttribute("menu") Menu menu) {
 		
 		menu.setServiceTravel(serviceTravel);
 		menuService.saveMenu(menu);
 		String s = "redirect:/menus/list/" + serviceTravel.getId().toString();
-		
 		return s;
 	}
 
-	@GetMapping("/menus/edit/{id}")
-	public String editServicesTravelForm(@PathVariable Long id, Model model) {
+	@GetMapping("/edit/{id}")
+	public String editMenuForm(@PathVariable Long id, Model model) {
 		Menu menu = menuService.getMenuById(id);
 		
 		model.addAttribute("menu", menu);
 		model.addAttribute("menuTypes", menuTypes);
 
-		return "edit-menu";
+		return "menus/edit-menu";
 	}
 
-	@PostMapping("/menus/{id}")
-	public String updateServicesTravel(@PathVariable Long id, @ModelAttribute("menu") Menu menu, Model model) {
+	@PostMapping("/menus-edit/{id}")
+	public String updateMenu(@PathVariable Long id, @ModelAttribute("menu") Menu menu, Model model) {
 		Menu existentMenu = menuService.getMenuById(id);
 
 		existentMenu.setId(id);
@@ -83,13 +85,21 @@ public class MenuController {
 
 		menuService.updateMenu(existentMenu);
 
-		return "redirect:/";
+		String s = "redirect:/menus/list/" + serviceTravel.getId().toString();
+		return s;
 	}
 
-	@GetMapping("/menus/{id}")
+	@GetMapping("/menus-delete/{id}")
 	public String deleteMenu(@PathVariable Long id) {
 		menuService.deleteMenu(id);
-		return "redirect:/";
+		String s = "redirect:/menus/list/" + serviceTravel.getId().toString();
+		return s;
+	}
+	
+	@GetMapping("/back")
+	public String back(Model model) {
+		String s = "redirect:/menus/list/" + serviceTravel.getId().toString();
+		return s;
 	}
 
 }
