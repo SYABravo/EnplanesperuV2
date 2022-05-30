@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<link rel="stylesheet" th:href="@{/record.css}">
+<body>
+	<th:block th:include="fragments/navbar-affiliate"></th:block>
+	
+	<div class="container">
+		
+		<h1 th:text="${menu.name}"></h1>
+		<h1>Platos</h1>
+		
+		<a href="#" class="btn btn-danger" >Back</a>
+	 	<a href="#" class="btn btn-primary">Add Plate</a>
+	 	
+	 	<table class="table table-hover table-bordered">
+	 		
+	 		<thead class="table-dark">
+				<tr>
+					<th>Name of Plate</th>
+					<th>Price of Menu</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="plate:${plates}">
+					<td th:text="${plate.name}"></td>
+					<td th:text="${plate.price}"></td>
+					<td>
+						<a href="#"
+						class="btn btn-primary">Edit</a> 
+						<a href="#"
+						class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+	 	
+	 	</table>
+		
+	</div>
+	
+	<th:block th:include="fragments/scripts"></th:block>
+</body>
+</html>
