@@ -56,5 +56,41 @@ public class RoomController {
 		return s;
 	}
 	
+	@GetMapping("/edit/{id}")
+	public String editRoomForm(@PathVariable Long id, Model model) {
+		Room room = roomService.getRoomById(id);
+		
+		model.addAttribute("room", room);
+
+		return "rooms/edit-room";
+	}
+	
+	@PostMapping("/rooms-edit/{id}")
+	public String updateRoom(@PathVariable Long id, @ModelAttribute("room") Room room, Model model) {
+		
+		Room existentRoom = roomService.getRoomById(id);
+		
+		existentRoom.setId(id);
+		existentRoom.setQuantityBed(room.getQuantityBed());
+		existentRoom.setPriceRoom(room.getPriceRoom());
+
+		roomService.updateRoom(existentRoom);
+
+		String s = "redirect:/rooms/list/" + serviceTravel.getId().toString();
+		return s;
+	}
+	
+	@GetMapping("/rooms-delete/{id}")
+	public String deleteRoom(@PathVariable Long id) {
+		roomService.deleteRoom(id);
+		String s = "redirect:/rooms/list/" + serviceTravel.getId().toString();
+		return s;
+	}
+	
+	@GetMapping("/back")
+	public String back(Model model) {
+		String s = "redirect:/rooms/list/" + serviceTravel.getId().toString();
+		return s;
+	}
 
 }
