@@ -28,7 +28,7 @@
 					<td th:text="${plate.name}"></td>
 					<td th:text="${plate.price}"></td>
 					<td>
-						<a href="#"
+						<a th:href="@{/plates/edit/{id}(id=${plate.id})}"
 						class="btn btn-primary">Edit</a> 
 						<a href="#"
 						class="btn btn-danger">Delete</a>

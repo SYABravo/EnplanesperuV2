@@ -64,6 +64,18 @@ public class PlateController {
 		return "plates/edit-plate";
 	}
 
+	@PostMapping("/plates-edit/{id}")
+	public String updatePlate(@PathVariable Long id, @ModelAttribute("plate") Plate plate, Model model) {
+		Plate existentPlate = plateService.getPlateById(id);
+		existentPlate.setId(id);
+		existentPlate.setName(plate.getName());
+		existentPlate.setPrice(plate.getPrice());
+	
+		plateService.updatePlate(existentPlate);
+
+		String s = "redirect:/plates/list/" + menu.getId().toString();
+		return s;
+	}
 
 	
 
