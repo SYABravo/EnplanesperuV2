@@ -76,7 +76,19 @@ public class PlateController {
 		String s = "redirect:/plates/list/" + menu.getId().toString();
 		return s;
 	}
-
 	
+	@GetMapping("/plates-delete/{id}")
+	public String deletePlate(@PathVariable Long id) {
+		plateService.deletePlate(id);
+		String s = "redirect:/plates/list/" + menu.getId().toString();
+		return s;
+	}
+	
+	
+	@GetMapping("/back")
+	public String back(Model model) {
+		String s = "redirect:/plates/list/" + menu.getId().toString();
+		return s;
+	}
 
 }

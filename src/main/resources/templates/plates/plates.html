@@ -10,7 +10,7 @@
 		<h1 th:text="${menu.name}"></h1>
 		<h1>Platos</h1>
 		
-		<a href="#" class="btn btn-danger" >Back</a>
+		<a th:href="@{/menus/list/{id}(id=${menu.serviceTravel.id})}" class="btn btn-danger" >Back</a>
 	 	<a th:href="@{/plates/insert}" class="btn btn-primary">Add Plate</a>
 	 	
 	 	<table class="table table-hover table-bordered">
@@ -30,7 +30,7 @@
 					<td>
 						<a th:href="@{/plates/edit/{id}(id=${plate.id})}"
 						class="btn btn-primary">Edit</a> 
-						<a href="#"
+						<a th:href="@{/plates/plates-delete/{id}(id=${plate.id})}"
 						class="btn btn-danger">Delete</a>
 					</td>
 				</tr>
