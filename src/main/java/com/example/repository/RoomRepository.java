@@ -10,7 +10,7 @@ import com.example.entities.Room;
 public interface RoomRepository extends JpaRepository<Room,Long>{
 
 	
-	@Query("FROM Menu WHERE service_id = ?1")
+	@Query("FROM Room WHERE service_id = ?1")
 	List<Room> findAllByService(Long id);
 	
 	

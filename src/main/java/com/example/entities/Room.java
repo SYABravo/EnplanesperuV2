@@ -16,8 +16,8 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "cuantity_bed", nullable = false)
-	private int cuantityBed;
+	@Column(name = "Quantity_bed", nullable = false)
+	private int quantityBed;
 
 	@Column(name = "price_room", nullable = false)
 	private double priceRoom;
@@ -34,12 +34,12 @@ public class Room {
 		this.id = id;
 	}
 
-	public int getCuantityBed() {
-		return cuantityBed;
+	public int getQuantityBed() {
+		return quantityBed;
 	}
 
-	public void setCuantityBed(int cuantityBed) {
-		this.cuantityBed = cuantityBed;
+	public void setQuantityBed(int quantityBed) {
+		this.quantityBed = quantityBed;
 	}
 
 	public double getPriceRoom() {
